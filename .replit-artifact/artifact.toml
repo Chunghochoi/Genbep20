@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Random Password Generator"
+version = "1.0.0"
+id = "artifacts/random-password"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18998
+
+[services.development]
+run = "pnpm --filter @workspace/random-password run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/random-password", "run", "build" ]
+publicDir = "artifacts/random-password/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18998"
+BASE_PATH = "/"
